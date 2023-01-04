@@ -1,6 +1,7 @@
 import { useLoaderData } from "@remix-run/react";
 import { getBebidas } from "~/models/bebidas.server";
-import Bebida from "~/components/bebida";
+import ListadoBebidas from "~/components/listado-bebidas";
+
 import styles from "~/styles/bebidas.css";
 
 export function meta() {
@@ -28,14 +29,7 @@ function Tienda() {
   const bebidas = useLoaderData();
   return (
     <div className="contenedor">
-      <h2 className="heading">Nuestra coleccion</h2>
-      {bebidas.length && (
-        <div className="bebidas-grid">
-          {bebidas.map((bebida) => (
-            <Bebida key={bebida?.id} bebida={bebida?.attributes} />
-          ))}
-        </div>
-      )}
+      <ListadoBebidas bebidas={bebidas} />
     </div>
   );
 }
