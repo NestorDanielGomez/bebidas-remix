@@ -1,22 +1,12 @@
 import { useLoaderData } from "@remix-run/react";
 import ListadoPosts from "~/components/listado-posts";
 import { getPosts } from "~/models/blogs.server";
-import styles from "~/styles/blog.css";
 
 export function meta() {
   return {
     title: `Bebidas Remix | Tienda de bebidas`,
     description: `Nuestro catalogo de bebidas`,
   };
-}
-
-export function links() {
-  return [
-    {
-      rel: `stylesheet`,
-      href: styles,
-    },
-  ];
 }
 
 export async function loader() {
@@ -27,9 +17,5 @@ export async function loader() {
 export default function Blog() {
   const posts = useLoaderData();
 
-  return (
-    <main className="contenedor">
-      <ListadoPosts posts={posts} />
-    </main>
-  );
+  return <ListadoPosts posts={posts} />;
 }

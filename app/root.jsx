@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Meta,
   Links,
@@ -46,9 +47,53 @@ export function links() {
 }
 
 export default function App() {
+  const [carrito, setCarrito] = useState([]);
+
+  const agregarAlCarrito = (bebida) => {
+    if (carrito.some((bebidaState) => bebidaState.id === bebida.id)) {
+      //itero el arreglo y busco el elemento duplicado
+      const carroActualizado = carrito.map((bebidaEstado) => {
+        if (bebidaEstado.id === bebida.id) {
+          //rescribo solo la cantidad
+          bebidaEstado.cantidad = bebida.cantidad;
+          //sumo a la cantidad previa el valor que volvio a elegir
+          //bebidaEstado.cantidad += bebida.cantidad;
+        }
+        return bebidaEstado;
+      });
+      setCarrito(carroActualizado);
+    } else {
+      setCarrito([...carrito, bebida]);
+    }
+  };
+
+  const actualizarCantidad = (bebida) => {
+    const carritoActualizado = carrito.map((bebidaState) => {
+      if (bebidaState.id === bebida.id) {
+        bebidaState.cantidad = bebida.cantidad;
+      }
+      return bebidaState;
+    });
+    setCarrito(carritoActualizado);
+  };
+
+  const eliminarBebida = (id) => {
+    const carritoActualizado = carrito.filter(
+      (bebidaState) => bebidaState !== id
+    );
+    setCarrito(carritoActualizado);
+  };
+
   return (
     <Document>
-      <Outlet />
+      <Outlet
+        context={{
+          agregarAlCarrito,
+          carrito,
+          actualizarCantidad,
+          eliminarBebida,
+        }}
+      />
     </Document>
   );
 }
