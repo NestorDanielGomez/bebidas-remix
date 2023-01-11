@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Meta,
   Links,
@@ -47,7 +47,14 @@ export function links() {
 }
 
 export default function App() {
-  const [carrito, setCarrito] = useState([]);
+  const carritoLS =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem(`carrito`)) ?? []
+      : null;
+  const [carrito, setCarrito] = useState(carritoLS);
+  useEffect(() => {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
 
   const agregarAlCarrito = (bebida) => {
     if (carrito.some((bebidaState) => bebidaState.id === bebida.id)) {
@@ -79,7 +86,7 @@ export default function App() {
 
   const eliminarBebida = (id) => {
     const carritoActualizado = carrito.filter(
-      (bebidaState) => bebidaState !== id
+      (bebidaState) => bebidaState.id !== id
     );
     setCarrito(carritoActualizado);
   };
