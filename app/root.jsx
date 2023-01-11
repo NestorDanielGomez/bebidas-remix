@@ -11,6 +11,7 @@ import {
 import styles from "~/styles/index.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
+
 export function meta() {
   return {
     charset: `utf-8`,
@@ -33,7 +34,7 @@ export function links() {
     {
       rel: `preconnect`,
       href: `https://fonts.gstatic.com`,
-      crosOrigin: "true",
+      crosorigin: "true",
     },
     {
       rel: `stylesheet`,
@@ -108,21 +109,20 @@ export default function App() {
 //  <Scripts /> para que no flashee toda la pagina cuando recargo
 function Document({ children }) {
   return (
-    <>
-      <html lang="es">
-        <head>
-          <Meta />
-          <Links />
-          <title>Bebidas - remix</title>
-        </head>
+    <html lang="es">
+      <head>
+        <Meta />
+        <Links />
+        <title>Bebidas - remix</title>
+      </head>
+      <body>
         <Header />
-
-        <body>{children}</body>
+        {children}
         <Footer />
         <Scripts />
         <LiveReload />
-      </html>
-    </>
+      </body>
+    </html>
   );
 }
 

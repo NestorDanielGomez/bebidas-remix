@@ -1,4 +1,5 @@
 import { useLoaderData } from "@remix-run/react";
+
 import { getBebidas } from "~/models/bebidas.server";
 import { getPosts } from "~/models/blogs.server";
 import { getPromocion } from "~/models/promocion.server";
